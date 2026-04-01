@@ -36,8 +36,8 @@ p.add_argument('--checkpoint_path', default=None, help='Checkpoint to trained mo
 opt = p.parse_args()
 
 img_dataset = dataio.Camera()
-coord_dataset = dataio.Implicit2DWrapper(img_dataset, sidelength=512, compute_diff='all')
-image_resolution = (512, 512)
+coord_dataset = dataio.Implicit2DWrapper(img_dataset, sidelength=256, compute_diff='all')
+image_resolution = (256, 256)
 
 dataloader = DataLoader(coord_dataset, shuffle=True, batch_size=opt.batch_size, pin_memory=True, num_workers=0)
 

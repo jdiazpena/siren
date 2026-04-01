@@ -10,6 +10,7 @@ import cv2
 import meta_modules
 import scipy.io.wavfile as wavfile
 import cmapy
+import skimage.metrics
 
 
 def cond_mkdir(path):
@@ -583,8 +584,11 @@ def write_psnr(pred_img, gt_img, writer, iter, prefix):
 
         trgt = (trgt / 2.) + 0.5
 
-        ssim = skimage.measure.compare_ssim(p, trgt, multichannel=True, data_range=1)
-        psnr = skimage.measure.compare_psnr(p, trgt, data_range=1)
+        # ssim = skimage.measure.compare_ssim(p, trgt, multichannel=True, data_range=1)
+        # psnr = skimage.measure.compare_psnr(p, trgt, data_range=1)
+
+        ssim = skimage.metrics.structural_similarity(p, trgt, channel_axis=-1, data_range=1)
+        psnr = skimage.metrics.peak_signal_noise_ratio(p, trgt, data_range=1)
 
         psnrs.append(psnr)
         ssims.append(ssim)
